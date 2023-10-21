@@ -101,39 +101,27 @@ local FlyButton = MainTab:CreateButton({
     Name = "Fly Toggle",
     Callback = function()
         -- Flying logic
--- Variables for flying
-local isFlying = false
-local flySpeed = 50 -- You can adjust this value to control the speed
-local maxFlySpeed = 100
-local minFlySpeed = 10
-
--- Function to toggle flying
-function toggleFly()
-    isFlying = not isFlying
-    if isFlying then
-        fly()
-    end
-end
-
--- Function to handle flying logic
-function fly()
+-- Function to enable and disable flight
+local function toggleFly()
     local player = game.Players.LocalPlayer
-    local character = player.Character
+    local character = player.Character or player.CharacterAdded:Wait()
 
-    if not character or not character:FindFirstChild("Humanoid") then
-        return
-    end
-
-    local humanoid = character.Humanoid
-    local camera = game.Workspace.CurrentCamera
-
-    while isFlying do
-        humanoid:Move(camera.CFrame.lookVector * (flySpeed / 10))
-        wait()
+    if character then
+        local humanoid = character:FindFirstChild("Humanoid")
+        if humanoid then
+            if humanoid:GetState() == Enum.HumanoidStateType.Physics then
+                humanoid:Move(Vector3.new(0, 0, 0))
+                humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+                humanoid:ChangeState(Enum.HumanoidStateType.Seated)
+            else
+                humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+                humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+            end
+        end
     end
 end
 
--- Bind the "E" key to toggle flying
+-- Bind the toggleFly function to a key (e.g., "E" key)
 local UserInputService = game:GetService("UserInputService")
 local toggleKey = Enum.KeyCode.E
 
@@ -142,27 +130,6 @@ UserInputService.InputBegan:Connect(function(input, isProcessed)
         toggleFly()
     end
 end)
-
--- Adjust flying speed using "W" and "S" keys
-local increaseSpeedKey = Enum.KeyCode.W
-local decreaseSpeedKey = Enum.KeyCode.S
-
-UserInputService.InputBegan:Connect(function(input, isProcessed)
-    if isFlying and input.KeyCode == increaseSpeedKey then
-        flySpeed = math.min(flySpeed + 10, maxFlySpeed)
-    elseif isFlying and input.KeyCode == decreaseSpeedKey then
-        flySpeed = math.max(flySpeed - 10, minFlySpeed)
-    end
-end)
-
--- Function to handle player removal
-local function onPlayerRemoving(player)
-    if player == game.Players.LocalPlayer then
-        isFlying = false
-    end
-end
-
-game.Players.PlayerRemoving:Connect(onPlayerRemoving)
 
     end,
 })
