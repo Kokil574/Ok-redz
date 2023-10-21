@@ -46,13 +46,13 @@ local ESPButton = MainTab:CreateButton({
         -- ESP logic
 -- Define a function to create ESP for a part
 -- Function to create and update the ESP line
-function createOrUpdateESP(player)
+local function createOrUpdateESP(player)
     local character = player.Character
     if not character then
         return
     end
 
-    local head = character:WaitForChild("Head")
+    local head = character:FindFirstChild("Head")
     if not head then
         return
     end
@@ -74,7 +74,7 @@ function createOrUpdateESP(player)
 end
 
 -- Function to remove ESP for all players
-function removeESP()
+local function removeESP()
     for _, player in pairs(game.Players:GetPlayers()) do
         local espPart = player:FindFirstChild("ESP")
         if espPart then
@@ -91,30 +91,6 @@ end)
 -- Remove ESP when players leave
 game.Players.PlayerRemoving:Connect(function(player)
     removeESP()
-end)
-
--- Function to toggle ESP on/off
-local espEnabled = false
-local toggleKey = Enum.KeyCode.E -- Change this to the key you want to use
-
-local UserInputService = game:GetService("UserInputService")
-
-function toggleESP()
-    espEnabled = not espEnabled
-    if espEnabled then
-        for _, player in pairs(game.Players:GetPlayers()) do
-            createOrUpdateESP(player)
-        end
-    else
-        removeESP()
-    end
-end
-
--- Bind the toggleESP function to the specified key
-UserInputService.InputBegan:Connect(function(input, isProcessed)
-    if not isProcessed and input.KeyCode == toggleKey then
-        toggleESP()
-    end
 end)
 
     end,
