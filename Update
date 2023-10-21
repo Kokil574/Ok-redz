@@ -125,6 +125,69 @@ local FlyButton = MainTab:CreateButton({
     Name = "Fly Toggle",
     Callback = function()
         -- Flying logic
+-- Variables for flying
+local isFlying = false
+local flySpeed = 50 -- You can adjust this value to control the speed
+local maxFlySpeed = 100
+local minFlySpeed = 10
+
+-- Function to toggle flying
+function toggleFly()
+    isFlying = not isFlying
+    if isFlying then
+        fly()
+    end
+end
+
+-- Function to handle flying logic
+function fly()
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+
+    if not character or not character:FindFirstChild("Humanoid") then
+        return
+    end
+
+    local humanoid = character.Humanoid
+    local camera = game.Workspace.CurrentCamera
+
+    while isFlying do
+        humanoid:Move(camera.CFrame.lookVector * (flySpeed / 10))
+        wait()
+    end
+end
+
+-- Bind the "E" key to toggle flying
+local UserInputService = game:GetService("UserInputService")
+local toggleKey = Enum.KeyCode.E
+
+UserInputService.InputBegan:Connect(function(input, isProcessed)
+    if not isProcessed and input.KeyCode == toggleKey then
+        toggleFly()
+    end
+end)
+
+-- Adjust flying speed using "W" and "S" keys
+local increaseSpeedKey = Enum.KeyCode.W
+local decreaseSpeedKey = Enum.KeyCode.S
+
+UserInputService.InputBegan:Connect(function(input, isProcessed)
+    if isFlying and input.KeyCode == increaseSpeedKey then
+        flySpeed = math.min(flySpeed + 10, maxFlySpeed)
+    elseif isFlying and input.KeyCode == decreaseSpeedKey then
+        flySpeed = math.max(flySpeed - 10, minFlySpeed)
+    end
+end)
+
+-- Function to handle player removal
+local function onPlayerRemoving(player)
+    if player == game.Players.LocalPlayer then
+        isFlying = false
+    end
+end
+
+game.Players.PlayerRemoving:Connect(onPlayerRemoving)
+
     end,
 })
 
