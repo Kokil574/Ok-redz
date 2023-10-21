@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 -- Create a window
 local Window = Rayfield:CreateWindow({
-    Name = "DEEZNUTS HUB v3 | GUNSIM, BROOKHAVEN",
+    Name = "DEEZNUTS HUB v4 | GUNSIM, BROOKHAVEN",
     LoadingTitle = "DEEZNUTS HUB v4",
     LoadingSubtitle = "by luascripts×DARKTEAM",
     ConfigurationSaving = {
@@ -21,7 +21,7 @@ local Window = Rayfield:CreateWindow({
         Subtitle = "Key System",
         Note = "Key In Discord Server",
         FileName = "DEEZNUTSHubKey1",
-        SaveKey = false,
+        SaveKey = true,
         GrabKeyFromSite = true,
         Key = {"DEEZHUB4"}
     }
@@ -116,7 +116,6 @@ UserInputService.InputBegan:Connect(function(input, isProcessed)
         toggleESP()
     end
 end)
-
 
     end,
 })
