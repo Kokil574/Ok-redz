@@ -1,0 +1,193 @@
+-- Load the Rayfield library
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+-- Create a window
+local Window = Rayfield:CreateWindow({
+    Name = "DEEZNUTS HUB v3 | GUNSIM, BROOKHAVEN",
+    LoadingTitle = "DEEZNUTS HUB v3",
+    LoadingSubtitle = "by luascripts×DARKTEAM",
+    ConfigurationSaving = {
+        Enabled = true,
+        FileName = "DEEZNUTS Hub"
+    },
+    Discord = {
+        Enabled = true,
+        Invite = "LUASCRIPTs™∆✓",
+        RememberJoins = true
+    },
+    KeySystem = true,
+    KeySettings = {
+        Title = "Key | DEEZNUT",
+        Subtitle = "Key System",
+        Note = "Key In Discord Server",
+        FileName = "DEEZNUTSHubKey1",
+        SaveKey = false,
+        GrabKeyFromSite = true,
+        Key = {"DEEZHUB"}
+    }
+})
+
+-- Main Tab and Section
+local MainTab = Window:CreateTab("Home", nil)
+local MainSection = MainTab:CreateSection("Main")
+
+-- Buttons
+local ButtonInfiniteJump = MainTab:CreateButton({
+    Name = "Infinite Jump Toggle",
+    Callback = function()
+        -- Infinite jump logic
+    end,
+})
+
+local isESPEnabled = false
+local ESPButton = MainTab:CreateButton({
+    Name = "ESP Toggle",
+    Callback = function()
+        -- ESP logic
+-- Define a function to create ESP for a part
+function createESP(part)
+    local esp = Instance.new("BoxHandleAdornment")
+    esp.Size = part.Size
+    esp.Adornee = part
+    esp.Transparency = 0.5
+    esp.AlwaysOnTop = true
+    esp.ZIndex = 1
+    esp.Parent = part
+end
+
+-- Loop through parts in the game and create ESP for them
+for _, part in pairs(game.Workspace:GetDescendants()) do
+    if part:IsA("BasePart") then
+        createESP(part)
+    end
+end
+
+    end,
+})
+
+local isFlyingEnabled = false
+local FlyButton = MainTab:CreateButton({
+    Name = "Fly Toggle",
+    Callback = function()
+        -- Flying logic
+    end,
+})
+
+local ButtonREDZhub = MainTab:CreateButton({
+    Name = "REDZhub",
+    Callback = function()
+        -- Toggle RedZHUB
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/REDzHUB/OrionLib/main/Orion')))()
+local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+local Window = OrionLib:MakeWindow({Name = "REDz HUB : "..gameName, HidePremium = false, SaveConfig = true, ConfigFolder = "teste"})
+
+local REDz = Window:MakeTab({Name = "Main",Icon = "rbxassetid://13687632207",PremiumOnly = false})
+
+REDz:AddButton({Name = "REDz HUB In English",Callback = function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/HR/main/REDzHUBeng"))()
+end})
+
+REDz:AddButton({Name = "REDz HUB em Português",Callback = function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/REDzHUB/main/REDzHUB"))()
+end})
+    end,
+})
+
+-- Sliders
+local SliderWalkSpeed = MainTab:CreateSlider({
+    Name = "WalkSpeed",
+    Range = {1, 350},
+    Increment = 1,
+    Suffix = "Speed",
+    CurrentValue = 16,
+    Flag = "sliderws",
+    Callback = function(Value)
+        -- Change WalkSpeed
+    end,
+})
+
+local SliderJumpPower = MainTab:CreateSlider({
+    Name = "JumpPower",
+    Range = {1, 350},
+    Increment = 1,
+    Suffix = "Speed",
+    CurrentValue = 16,
+    Flag = "sliderjp",
+    Callback = function(Value)
+        -- Change JumpPower
+    end,
+})
+
+-- Dropdown
+local DropdownArea = MainTab:CreateDropdown({
+    Name = "Select Area",
+    Options = {"Starter World", "Pirate Island", "Pineapple Paradise"},
+    CurrentOption = "Starter World",
+    MultipleOptions = false,
+    Flag = "dropdownarea",
+    Callback = function(Option)
+        -- Area selection logic
+    end,
+})
+
+-- Input Field
+local InputWalkspeed = MainTab:CreateInput({
+    Name = "Walkspeed",
+    PlaceholderText = "1-500",
+    RemoveTextAfterFocusLost = true,
+    Callback = function(Text)
+        -- Change Walkspeed using input
+    end,
+})
+
+-- Other Section
+local OtherSection = MainTab:CreateSection("Other")
+
+-- Toggle
+local ToggleAutoFarm = MainTab:CreateToggle({
+    Name = "Auto Farm",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        -- Auto farm logic
+    end,
+})
+
+-- Settings Tab
+local SettingsTab = Window:CreateTab("Settings", nil)
+
+-- Player Kick System Section
+local KickSystemSection = SettingsTab:CreateSection("Player Kick System")
+
+-- Kick Button
+local KickButton = KickSystemSection:CreateButton({
+    Name = "Kick Player",
+    Callback = function()
+        -- Player kick logic
+    end,
+})
+
+-- Teleports Tab
+local TPTab = Window:CreateTab("Teleports", nil)
+
+-- Teleport Buttons
+local ButtonTeleport1 = TPTab:CreateButton({
+    Name = "Starter Island",
+    Callback = function()
+        -- Teleport logic to Starter Island
+    end,
+})
+
+local ButtonTeleport2 = TPTab:CreateButton({
+    Name = "Pirate Island",
+    Callback = function()
+        -- Teleport logic to Pirate Island
+    end,
+})
+
+local ButtonTeleport3 = TPTab:CreateButton({
+    Name = "Pineapple Paradise",
+    Callback = function()
+        -- Teleport logic to Pineapple Paradise
+    end,
+})
